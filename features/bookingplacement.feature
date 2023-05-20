@@ -17,7 +17,6 @@ Feature: Booking.com website - booking process
         When user clicks on 5 star rating
         And User filters price lowest products
         And User selects second product on the list
-        Then Selected product details should be similar to product list item
         When user selects Rooms count and proceed
         Then checkout, checkin dates and amount should be same
         When user enters firstname,lastname and email and click Next
@@ -26,8 +25,8 @@ Feature: Booking.com website - booking process
         Then alert should not be present
 
         Examples:
-            | location     | message                            |
-            | Nuwara Eliya | Nuwara Eliya: 403 properties found |
+            | location     | message      |
+            | Nuwara Eliya | Nuwara Eliya |
 
 
 

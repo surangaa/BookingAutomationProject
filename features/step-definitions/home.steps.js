@@ -4,6 +4,8 @@ import CommonPage from '../pageobjects/common.page.js';
 import SearchPage from '../pageobjects/search.page.js';
 import ProductPage from '../pageobjects/product.page.js';
 import OrderPage from '../pageobjects/order.page.js';
+import productPage from '../pageobjects/product.page.js';
+import { expect as Chaiexpect } from "chai";
 
 Given(/^The user is on Home page$/, async () => {
     //load the booking.com website url
@@ -27,7 +29,6 @@ Then(/^the country should be changed to UK$/, async () => {
 
 When(/^the user perform currency selection$/, async () => {
      //currency selelction method is called
-    await browser.pause(1000);
     await HomePage.selectCurrency();
 });
 
@@ -68,10 +69,10 @@ When(/^the user select adults and child count$/, async() => {
 });
 
 
-Then(/^the location should be selected (.*)$/, async (location) => {
+Then(/^the location should be selected as (.*)$/, async (message) => {
 	// verify the location
     await SearchPage.clickSearch();
-    await SearchPage.verifyLocation(location);
+    await SearchPage.verifyLocation(message);
 });
 
 
@@ -85,15 +86,12 @@ When(/^User filters price lowest products$/, async () => {
 	await SearchPage.selectSortBypriceOption();
 });
 
-When(/^user selects second product on the list$/, async () => {
+When(/^User selects second product on the list$/, async () => {
     //select the second product from the list
-	await ProductPage.selectSecondProduct();
-});
-
-Then(/^Selected product details should be similar to product list item$/, async () => {
-	//verify product details in the Product Page
-    await ProductPage.verifyProductDetails();
-
+	let pdetails = await ProductPage.selectSecondProduct();
+    var key = Object.keys(pdetails)[0];
+    // console.log('passing value' + pdetails.productname)
+    await ProductPage.verifyProductDetails(pdetails[key]);
 });
 
 When(/^user selects Rooms count and proceed$/, async() => {
@@ -106,7 +104,7 @@ Then(/^checkout, checkin dates and amount should be same$/, async() => {
 	await OrderPage.verifyBooking()
 });
 
-When(/^ user enters firstname,lastname and email and click Next$/, async () => {
+When(/^user enters firstname,lastname and email and click Next$/, async () => {
     //fill firstname, lastname and email 
 	await OrderPage.fillDetailsForm()
 });

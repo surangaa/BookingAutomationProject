@@ -1,3 +1,5 @@
+import { start } from "chromedriver";
+
 class SearchPage {
   get locationInput() {
     return $("//input[@id=':Ra9:']");
@@ -38,15 +40,15 @@ class SearchPage {
   }
 
   get SortByButton() {
-    return $("button*=Sort by:Top picks for solo travellers");
+    return $('button*=Sort by');
   }
 
   get priceLowestListitem() {
-    return $("button*=Price (lowest first)");
+    return $('button*=Price (lowest first)');
   }
 
-  get text() {
-    return $(".fcab3ed991 d5f78961c3");
+  get textHeading() {
+    return $('h1*=properties found');
   }
 
   get selectedCheckinDate() {
@@ -70,6 +72,7 @@ class SearchPage {
     await this.checkinDate.click();
 
     //select checkout time
+    await browser.pause(2000)
     await this.checkoutDate.click();
   }
 
@@ -87,17 +90,19 @@ class SearchPage {
     await this.searchButton.click();
   }
 
-  async verifyLocation(location) {
+  async verifyLocation(message) {
     //verify location
-    await expect(text).toHaveTextContaining(location);
+    await expect(this.textHeading).toHaveTextContaining(message);
   }
 
   async selectRating() {
+    await this.starRateCheckbox.scrollIntoView();
     //click star 5 rating
     await this.starRateCheckbox.click();
   }
 
   async selectSortBypriceOption() {
+    await this.SortByButton.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
     //select price lowest option
     await this.SortByButton.click();
     await this.priceLowestListitem.click();

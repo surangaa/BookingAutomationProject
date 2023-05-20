@@ -1,66 +1,86 @@
+import { expect as Chaiexpect} from "chai";
+
 class ProductPage {
-    
+  get secondProductName() {
+    return $$('h3[class="a4225678b2"] a div[data-testid="title"]');
+  }
 
-    get secondProductName(){
-        return $("//div[contains(text(),'Hotel Suisse')]");
-    }
+  get secondProductPrice() {
+    return $$(
+      'div[class="e729ed5ab6 af8e3083b0"] span[class="fcab3ed991 fbd1d3018c e729ed5ab6"]'
+    );
+  }
 
-    get secondProductPrice(){
-        return $("//span[contains(text(),'US$81')]");
-    }
+  get productNamePd() {
+    return $('h2[class="d2fee87262 pp-header__title"]');
+  }
 
+  get selectBox() {
+    return $$('select[class="hprt-nos-select js-hprt-nos-select"]');
+  }
 
-    get productNamePd(){
-        return $('.d2fee87262 pp-header__title');
-    }
+  get reserveButton() {
+    return $("//button[@id='b_tt_holder_1']");
+  }
 
-    get selectBox(){
-        return $("//select[@id='hprt_nos_select_27132901_91140748_3_42_0']")
-    }
+  get headingLevel(){
+    return $('h2*=Availability')
+  }
 
-    get reserveButton(){
-        return $('#b_tt_holder_1')
-    }
+  //   let storedProductName;
 
+  async getProductDetails() {
+    // get product name of Home page
+    const productname = await this.secondProductName[1].getText();
+    console.log(productname);
 
-async selectSecondProduct(){
-    //get product name of Home page
-    const elem4 = await secondProductName;
-    let productname = await elem4.getText();
     //get product price of Home page
-    const elem5 = await secondProductPrice;
-    let productprice = await elem5.getText();
+    const productprice = await this.secondProductPrice[0].getText();
+    console.log(productprice);
 
+    return { productname, productprice };
+  }
+
+  async selectSecondProduct() {
+    await browser.pause(2000);
+    const pd = await this.getProductDetails();
     //click on Product name and naviagte to product details page
-    await this.secondProductName.click()
-    let l = browser.getWindowHandle()
+    await this.secondProductName[1].click();
     //switch to product details page
-    await browser.switchToWindow(l)
+    await browser.pause(2000);
+    await browser.switchWindow("booking.com/hotel");
+    await browser.pause(2000);
 
-    return productprice
-     
-}
+    return pd;
+  }
 
-async verifyProductDetails(){
+  async verifyProductDetails(productName) {
     //verify the product name in the product details page with the product list page
-    const elem6 = await secondProductName;
-    let pdproductname = await elem6.getText();
+    await this.productNamePd.waitForExist({ timeout: 10000 });
+    const pdproductname = await this.productNamePd.getText();
+    // console.log("productname in pd page" + pdproductname);
+    // console.log("productname" + productName);
+    
+    await Chaiexpect(productName).to.equal(pdproductname)
 
-    await expect(pdproductname).toHaveText(productname);
+  }
 
-    }
+  async selectRoomCount() {
+    await browser.pause(6000)
+//scroll till view the selectbox
+    // if (this.headingLevel.isDisplayedInViewport()) {
+    //   await this.headingLevel.scrollIntoView();
+    // } else {
+    //   console.error("Element is not visible");
+    // }
 
-   
-    async selectRoomCount(){
-        //scroll till view the selectbox
-        const elem7 = await selectBox;
-        await elem7.scrollIntoView();
+    await this.headingLevel.scrollIntoView();
 
-        //select room count for the select box.
-        await selectBox.selectByAttribute('value', '1');
-        await this.reserveButton.click();
-
-    }
+    
+    //select room count for the select box.
+    await this.selectBox[0].selectByAttribute("value", "1");
+    await this.reserveButton.click();
+  }
 }
 
 export default new ProductPage();
