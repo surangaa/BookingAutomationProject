@@ -1,3 +1,4 @@
+@bookingfeature
 Feature: Booking.com website - booking process
 
     Background:

@@ -3,5 +3,4 @@ let data = {
     url2: "https://www.youtube.com/watch?v=ybSU7PrWpgw"
 }
 
-
 export default data
