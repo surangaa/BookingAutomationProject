@@ -9,11 +9,14 @@
     "@wdio/shared-store-service": "^8.10.4",
     "@wdio/spec-reporter": "^8.10.2",
     "chromedriver": "^113.0.0",
-    "wdio-chromedriver-service": "^8.1.1"
+    "geckodriver": "^4.0.0",
+    "wdio-chromedriver-service": "^8.1.1",
+    "wdio-geckodriver-service": "^5.0.1"
   },
   "scripts": {
     "open-allure": ".\\node_modules\\.bin\\allure generate allure-results --clean",
-    "wdio": "wdio run ./wdio.conf.js && generate allure-results --clean && allure open"
+    "test": "wdio run ./wdio.conf.js",
+    "test:firefox" : "wdio run ./wdio.conf.firefox.js"
   },
   "dependencies": {
     "allure-commandline": "^2.22.0",
