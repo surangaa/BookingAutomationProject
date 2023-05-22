@@ -19,14 +19,14 @@ Feature: Booking.com website - booking process
         And User selects second product on the list
         When user selects Rooms count and proceed
         Then checkout, checkin dates and amount should be same
-        When user enters firstname,lastname and email and click Next
+        When user enters <firstname>, <lastname> and <emailaddress> and click Next
         Then entered details should be same
         When user dismisses the alert
         Then alert should not be present
 
         Examples:
-            | location     | message      |
-            | Nuwara Eliya | Nuwara Eliya |
+            | location     | message      | firstname | lastname | emailaddress  |
+            | Nuwara Eliya | Nuwara Eliya | robin     | hood     | abc@gmail.com |
 
 
 

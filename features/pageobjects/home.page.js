@@ -32,6 +32,14 @@ class HomePage {
     return $("//a[@id='accommodations']");
   }
 
+  get alertCloseBtn(){
+    return $('div[class="notice-item-close-x"]')
+  }
+
+  get alert(){
+    return $('div[data-cart-id="6B0DD26C-F6D0-11ED-9F7E-1B9359924B0A"]')
+  }
+
   async selectCountry() {
     await browser.pause(3000)
     await this.modalCloseButton.click();
@@ -65,12 +73,14 @@ class HomePage {
 
   async dismissAlert() {
     //dimiss the alert
-    await browser.dismissAlert();
+    browser.pause(10000)
+    await this.alertCloseBtn.click();
   }
 
   async checkForAlert() {
-    //verify whether the laert is opened
-    const isOpen = browser.isAlertOpen();
+    //verify whether the alert is opened
+    browser.pause(2000)
+    let isOpen = await this.alertCloseBtn.isDisplayed();
     console.log(isOpen);
     await expect(isOpen).toEqual(false);
   }

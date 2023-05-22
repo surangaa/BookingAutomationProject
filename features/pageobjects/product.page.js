@@ -1,4 +1,4 @@
-import { expect as Chaiexpect} from "chai";
+import { expect as Chaiexpect } from "chai";
 
 class ProductPage {
   get secondProductName() {
@@ -20,11 +20,19 @@ class ProductPage {
   }
 
   get reserveButton() {
-    return $("//button[@id='b_tt_holder_1']");
+    // return $('button[class="txp-bui-main-pp bui-button bui-button--primary  hp_rt_input px--fw-cta js-reservation-button"]');
+    return $('button[data-tooltip-class="submit_holder_button_tooltip"]')
   }
 
-  get headingLevel(){
-    return $('h2*=Availability')
+  get headingLevel() {
+    return $("h2*=Availability");
+  }
+
+  get totalPrice() {
+    return $(
+      'div[class=" hprt-reservation-total-price bui-price-display__value prco-inline-block-maker-helper"]'
+     
+    );
   }
 
   //   let storedProductName;
@@ -36,7 +44,7 @@ class ProductPage {
 
     //get product price of Home page
     const productprice = await this.secondProductPrice[0].getText();
-    console.log(productprice);
+    // console.log(productprice);
 
     return { productname, productprice };
   }
@@ -44,8 +52,10 @@ class ProductPage {
   async selectSecondProduct() {
     await browser.pause(2000);
     const pd = await this.getProductDetails();
+
     //click on Product name and naviagte to product details page
     await this.secondProductName[1].click();
+
     //switch to product details page
     await browser.pause(2000);
     await browser.switchWindow("booking.com/hotel");
@@ -58,27 +68,19 @@ class ProductPage {
     //verify the product name in the product details page with the product list page
     await this.productNamePd.waitForExist({ timeout: 10000 });
     const pdproductname = await this.productNamePd.getText();
-    // console.log("productname in pd page" + pdproductname);
-    // console.log("productname" + productName);
-    
-    await Chaiexpect(productName).to.equal(pdproductname)
 
+    await Chaiexpect(productName).to.equal(pdproductname);
   }
 
   async selectRoomCount() {
-    await browser.pause(6000)
-//scroll till view the selectbox
-    // if (this.headingLevel.isDisplayedInViewport()) {
-    //   await this.headingLevel.scrollIntoView();
-    // } else {
-    //   console.error("Element is not visible");
-    // }
-
+    await browser.pause(6000);
+    //scroll till view the selectbox
     await this.headingLevel.scrollIntoView();
 
-    
     //select room count for the select box.
     await this.selectBox[0].selectByAttribute("value", "1");
+
+    await browser.pause(1000);
     await this.reserveButton.click();
   }
 }

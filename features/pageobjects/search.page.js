@@ -62,8 +62,7 @@ class SearchPage {
   async selectLocation(location) {
     //select location
     await this.locationInput.setValue(location);
-    // await browser.keys("Down arrow");
-    // await browser.keys("\uE007");
+
   }
 
   async selectCheckinCheckout() {
@@ -74,6 +73,10 @@ class SearchPage {
     //select checkout time
     await browser.pause(2000)
     await this.checkoutDate.click();
+
+    let cd = await this.getDates();
+    console.log(cd)
+    return cd;
   }
 
   async selelctAdultChildCount() {
@@ -108,21 +111,13 @@ class SearchPage {
     await this.priceLowestListitem.click();
   }
 
-  async verifyCheckinDate() {
-    //get checkin date
-    const elem8 = await this.selectedCheckinDate;
-    let checkindate = await elem8.getText();
-
-    return checkindate;
+  async getDates() {
+    //get checkin date and checkout date
+    let checkindate = await this.selectedCheckinDate.getText();
+    let checkoutdate = await this.selectedCheckoutDate.getText();
+    return {checkindate, checkoutdate};
   }
 
-  async verifyCheckoutDate() {
-    //get checkout date
-    const elem9 = await this.selectedCheckoutDate;
-    let checkoutdate = await elem9.getText();
-
-    return checkoutdate;
-  }
 }
 
 export default new SearchPage();

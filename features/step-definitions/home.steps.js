@@ -4,8 +4,8 @@ import CommonPage from '../pageobjects/common.page.js';
 import SearchPage from '../pageobjects/search.page.js';
 import ProductPage from '../pageobjects/product.page.js';
 import OrderPage from '../pageobjects/order.page.js';
-import productPage from '../pageobjects/product.page.js';
-import { expect as Chaiexpect } from "chai";
+import { setValue, getValue } from '@wdio/shared-store-service'
+
 
 Given(/^The user is on Home page$/, async () => {
     //load the booking.com website url
@@ -60,7 +60,14 @@ When(/^the user enter the (.*)$/, async (location) => {
 
 When(/^the user selects check in and check out dates$/, async() => {
     //selelct checkin and checkout times
-	await SearchPage.selectCheckinCheckout();
+	const dd = await SearchPage.selectCheckinCheckout();
+    var key1 = Object.keys(dd)[0];
+    var key2 = Object.keys(dd)[1];
+
+    await setValue("checkindate", dd[key1]);
+    await setValue("checkoutdate", dd[key2]);
+
+ 
 });
 
 When(/^the user select adults and child count$/, async() => {
@@ -90,6 +97,9 @@ When(/^User selects second product on the list$/, async () => {
     //select the second product from the list
 	let pdetails = await ProductPage.selectSecondProduct();
     var key = Object.keys(pdetails)[0];
+    var key3 = Object.keys(pdetails)[1];
+
+    await setValue("productprice", pdetails[key3]);
     // console.log('passing value' + pdetails.productname)
     await ProductPage.verifyProductDetails(pdetails[key]);
 });
@@ -97,22 +107,45 @@ When(/^User selects second product on the list$/, async () => {
 When(/^user selects Rooms count and proceed$/, async() => {
 //select Room count 
 	await ProductPage.selectRoomCount()
+
 });
 
-Then(/^checkout, checkin dates and amount should be same$/, async() => {
-    //verify booking details in the Order Page
-	await OrderPage.verifyBooking()
+Then(/^checkout, checkin dates and amount should be same$/, async () => {
+  //verify booking details in the Order Page
+  const cid = await getValue("checkindate");
+  const cod = await getValue("checkoutdate");
+  const pp = await getValue("productprice");
+//   console.log('pp'+ pp)
+
+//   console.log('cid and cod and pp' + cid + ' ' +cod + ' '+ pp )
+  await OrderPage.verifyBooking(cid, cod, pp);
 });
 
-When(/^user enters firstname,lastname and email and click Next$/, async () => {
+When(/^user enters (.*), (.*) and (.*) and click Next$/, async (firstname, lastname, emailaddress) => {
     //fill firstname, lastname and email 
-	await OrderPage.fillDetailsForm()
+	const accdetails = await OrderPage.fillDetailsForm(firstname, lastname, emailaddress)
+    console.log('account details'+accdetails)
+    var key5 = Object.keys(accdetails)[0];
+    var key6 = Object.keys(accdetails)[1];
+    var key7 = Object.keys(accdetails)[2];
+
+
+    await setValue("fname", accdetails[key5]);
+    await setValue("lname", accdetails[key6]);
+    await setValue("email", accdetails[key7]);
+
+
 });
 
 
 Then(/^entered details should be same$/, async () => {
+    const fn = await getValue("fname");
+    const ln = await getValue("lname");
+    const em = await getValue("email");
+    // console.log(fn+ ln+ em);
+
     //verify form details
-	await OrderPage.verifyFormDetails()
+	await OrderPage.verifyFormDetails(fn, ln, em)
 });
 
 When(/^user dismisses the alert$/, async () => {
