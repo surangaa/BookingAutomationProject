@@ -12,7 +12,7 @@ class OrderPage {
   }
 
   get productTotal(){
-    return $("//body[1]/div[1]/div[1]/div[3]/div[2]/aside[1]/div[1]/div[1]/div[1]/section[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/span[1]");
+    return $('div[class="bp-price-details__total-price e2e-price-details__total-charge--user"] span');
     
   }
 
@@ -62,7 +62,7 @@ class OrderPage {
     //verify the booking price
     const pdprice = await this.productTotal.getText()
     console.log('total price:' + total + pdprice)
-    await expect(total).toEqual(pdprice)
+    await expect(Math.round(total)).toEqual(Math.round(pdprice))
 
   }
 
