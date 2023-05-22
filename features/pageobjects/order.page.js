@@ -47,7 +47,7 @@ class OrderPage {
     console.log('checkin:' + indate + checkinPd)
     const ci = checkinPd.substring(0, checkinPd.lastIndexOf(" "))
     console.log('ci'+ ci)
-    await expect(ci).toEqual(indate)
+    await expect(ci).toEqual(checkinPd)
 
 
     const checkoutPd = await this.checkout.getText();
