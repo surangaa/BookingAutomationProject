@@ -259,8 +259,9 @@ export const config = {
 
     afterStep: async function (step, scenario, { error, duration, passed }, context) {
         var dat = Date.now()
-        await browser.saveScreenshot('./reports/Screenshots/Chrome -' +dat+ '.png');
-        
+        if(error){
+        await browser.saveScreenshot('./reports/Screenshots/Chrome -' +dat+ '.png');   
+        }
       }
     /**
      *
