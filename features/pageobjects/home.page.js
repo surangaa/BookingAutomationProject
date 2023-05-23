@@ -74,7 +74,6 @@ class HomePage {
     //verify whether the alert is opened
     browser.pause(2000)
     let isOpen = await this.alertCloseBtn.isDisplayed();
-    console.log(isOpen);
     await expect(isOpen).toEqual(false);
   }
 }
