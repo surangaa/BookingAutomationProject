@@ -16,23 +16,22 @@ To run the test -> npm run test/ npm run testsuite / npm run bookingfeature
 
 ## Issues faced
 
-1. Faced difficulty in locating some elements as they were not having any unique attribute such as id, name or aria attribute.
+1. Faced difficulty in locating some elements as they were not having any unique attribute for id, name or aria attribute.
 
 *Workaround -*
-- $$ is used to fetch multiple elements on the page and get them to an array and use index of array element to access a specific element.
-- try to find the xpath of the elements. For this install 'Chropath' browser extension and find xpath to uniquely loacte an element.
+- $$ is used to fetch multiple elements on the page and stored them in an array and use index of array element to access a specific element.
+- try to find the xpath of the elements. For this install 'Chropath' browser extension and find xpath to uniquely locate an element.
 
 2. Observed that between some steps, there should be a wait time in order to load the page or elements.
 
-*Workaround -* having a additional test step with browser.pause()
+*Workaround -* having waitforExist() or waitForClickable() to handle particular scenarios
 
 3. Parameterization test url.
-
 *Workaround -* had a seperate file as url.js with the urls and read the specific property in 'common.page.js' page.
+               If user want to select a specific url according to the environment, they can first set the ENV variable using "SET ENV='DEV'" then call out the 'npm run test' in cmd.
 
 
 ## Challenges
-
 - an modal dialog appears on booking.com site randomly when going to select country. Had to handle the modal dialog and close it before proceeding with the next steps. 
 
 

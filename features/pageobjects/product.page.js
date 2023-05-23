@@ -62,7 +62,7 @@ class ProductPage {
 
   async verifyProductDetails(productName) {
     //verify the product name in the product details page with the product list page
-    await this.productNamePd.waitForExist({ timeout: 10000 });
+    await this.productNamePd.waitForExist({ timeout: 10000, timeoutMsg:'product name is not visible' });
     const pdproductname = await this.productNamePd.getText();
 
     await Chaiexpect(productName).to.equal(pdproductname);

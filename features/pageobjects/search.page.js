@@ -71,7 +71,7 @@ class SearchPage {
     await this.checkinDate.click();
 
     //select checkout time
-    await browser.pause(2000)
+    await this.checkoutDate.waitForClickable({timeout: 2000, timeoutMsg:'checkout date is not clickable'})
     await this.checkoutDate.click();
 
     let cd = await this.getDates();

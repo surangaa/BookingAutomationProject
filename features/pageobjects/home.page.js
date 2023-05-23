@@ -66,7 +66,7 @@ class HomePage {
 
   async dismissAlert() {
     //dimiss the alert
-    browser.pause(10000)
+    await this.alertCloseBtn.waitForExist(10000)
     await this.alertCloseBtn.click();
   }
 
