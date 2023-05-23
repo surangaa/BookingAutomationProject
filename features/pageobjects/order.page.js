@@ -18,7 +18,6 @@ class OrderPage {
 
   get firstNameInput(){
     return $('#firstname')
-
   }
 
   get lastNameInput(){
@@ -44,24 +43,24 @@ class OrderPage {
     const checkinPd = await this.checkin.getText();
 
     //verify whether checkin date of home page matches checkin date order confirmation page
-    console.log('checkin:' + indate + checkinPd)
+    // console.log('checkin:' + indate + checkinPd)
     const ci = checkinPd.substring(0, checkinPd.lastIndexOf(" "))
-    console.log('ci'+ ci)
+    // console.log('ci'+ ci)
     await expect(ci).toEqual(indate)
 
 
     const checkoutPd = await this.checkout.getText();
     //verify whether checkout date of home page matches checkout date order confirmation page
-    console.log('checkout:' + outdate + checkoutPd)
+    // console.log('checkout:' + outdate + checkoutPd)
     const co = checkoutPd.substring(0, checkoutPd.lastIndexOf(" "))
-    console.log('co'+ co)
+    // console.log('co'+ co)
     // await chaiAsPromised(outdate).to.equal(co)
     await expect(co).toEqual(outdate)
 
 
     //verify the booking price
     const pdprice = await this.productTotal.getText()
-    console.log('total price:' + total + pdprice)
+    // console.log('total price:' + total + pdprice)
     await expect(Math.round(total)).toEqual(Math.round(pdprice))
 
   }

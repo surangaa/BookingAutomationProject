@@ -20,7 +20,6 @@ class ProductPage {
   }
 
   get reserveButton() {
-    // return $('button[class="txp-bui-main-pp bui-button bui-button--primary  hp_rt_input px--fw-cta js-reservation-button"]');
     return $('button[data-tooltip-class="submit_holder_button_tooltip"]')
   }
 
@@ -35,8 +34,6 @@ class ProductPage {
     );
   }
 
-  //   let storedProductName;
-
   async getProductDetails() {
     // get product name of Home page
     const productname = await this.secondProductName[1].getText();
@@ -44,7 +41,6 @@ class ProductPage {
 
     //get product price of Home page
     const productprice = await this.secondProductPrice[0].getText();
-    // console.log(productprice);
 
     return { productname, productprice };
   }

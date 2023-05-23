@@ -5,25 +5,35 @@ This project includes a basic flow automation of Booking.com official website. W
 ## Prerequisites to setup project
 install and setup Node
 install an IDE (preferably VS Code)
-install and setup Maven
 
 
 ## Steps to run the code
-Clone the repository
+clone the reporsitory -  git clone https://github.com/surangaa/BookingAutomationProject.git
 Open the project in IDE
-To run the featurefile -> npx wdio --spec .\features\{{bookingplacement.feature}}
+run a 'npm install' to install all the dependencies
+To run the test -> npm run test/ npm run testsuite / npm run bookingfeature 
+(to run the project in firefox use -> npm run test:firefox)
 
 ## Issues faced
-Faced difficulty in locating some elements as they were not having any unique attribute such as id, name or aria attribute.
-Workaround - try to find the xpath of the elements. For this install 'Chropath' browser extension and find xpath to uniquely loacte an element.
 
-Observed that between some steps, there should be a wait time in order to load the page or elements.
-Workaround - having a additional test step with browser.pause()
+1. Faced difficulty in locating some elements as they were not having any unique attribute such as id, name or aria attribute.
 
-Parameterization test url.
-workaround - 
+*Workaround -*
+- $$ is used to fetch multiple elements on the page and get them to an array and use index of array element to access a specific element.
+- try to find the xpath of the elements. For this install 'Chropath' browser extension and find xpath to uniquely loacte an element.
+
+2. Observed that between some steps, there should be a wait time in order to load the page or elements.
+
+*Workaround -* having a additional test step with browser.pause()
+
+3. Parameterization test url.
+
+*Workaround -* had a seperate file as url.js with the urls and read the specific property in 'common.page.js' page.
+
 
 ## Challenges
 
-an modal dialog appears on booking.com site randomly when going to select country. Had to handle the modal dialog and close it before proceeding with the next steps. 
-Since this modal dialog appears randomly, test wait until that modal appears. Therefore, it takes additional time to execute test.
+- an modal dialog appears on booking.com site randomly when going to select country. Had to handle the modal dialog and close it before proceeding with the next steps. 
+
+
+

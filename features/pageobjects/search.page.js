@@ -75,7 +75,6 @@ class SearchPage {
     await this.checkoutDate.click();
 
     let cd = await this.getDates();
-    console.log(cd)
     return cd;
   }
 

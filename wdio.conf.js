@@ -1,13 +1,13 @@
-import data from './features/test-Data/url.js'
+// import data from './features/test-Data/url.js'
 
-let appBaseurl
+// let appBaseurl
 
-if(process.env.ENV === 'DEV'){appBaseurl = data.url1 }
-else if (process.env.ENV === 'QA') {appBaseurl = data.url2}
-else{
-    console.log('Please pass either DEV or QA as ENV')
-    process.exit()
-}
+// if(process.env.ENV === 'DEV'){appBaseurl = data.url1 }
+// else if (process.env.ENV === 'QA') {appBaseurl = data.url2}
+// else{
+//     console.log('Please pass either DEV or QA as ENV')
+//     process.exit()
+// }
 
 export const config = {
     //
@@ -101,7 +101,8 @@ export const config = {
     // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
     // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
     // gets prepended directly.
-    baseUrl: appBaseurl,
+    baseUrl: 'http://localhost',
+    // baseUrl: appBaseurl,
     //
     // Default timeout for all waitFor* commands.
     waitforTimeout: 10000,

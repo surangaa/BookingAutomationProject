@@ -41,16 +41,11 @@ class HomePage {
   }
 
   async selectCountry() {
-    await browser.pause(3000)
+
     await this.modalCloseButton.click();
 
     //click on home page country btn
     await this.countryButton.click();
-
-    //   await this.modalCloseButton.waitForExist({timeout:100000})
-      //click on close button of the modal dialog
-    //   await this.modalCloseButton.click();
-    
 
     //selelct Uk as the country
     // await browser.pause(1000);
@@ -59,10 +54,8 @@ class HomePage {
 
   async selectCurrency() {
     //click on home page currency btn
-    // await browser.pause(1000);
     await this.currencyButton.click();
     //selelct usd as the currency
-    // await browser.pause(1000);
     await this.currencyUsdButton.click();
   }
 
