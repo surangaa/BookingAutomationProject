@@ -11,14 +11,16 @@
     "chromedriver": "^113.0.0",
     "geckodriver": "^4.0.0",
     "wdio-chromedriver-service": "^8.1.1",
+    "wdio-edgedriver-service": "^3.0.1",
     "wdio-geckodriver-service": "^5.0.1"
   },
   "scripts": {
     "open-allure": ".\\node_modules\\.bin\\allure generate allure-results --clean && allure open",
     "test": "wdio run ./wdio.conf.js && npm run open-allure",
-    "test:firefox" : "wdio run ./wdio.conf.firefox.js && npm run open-allure",
-    "testsuite" : "wdio run ./wdio.conf.js --suite regression && npm run open-allure",
-    "bookingfeature": "wdio run ./wdio.conf.js --cucumberOptions.tagExpressions='@bookingfeature'" 
+    "test:firefox": "wdio run ./wdio.conf.firefox.js && npm run open-allure",
+    "test:edge": "wdio run ./wdio.conf.edge.js && npm run open-allure",
+    "testsuite": "wdio run ./wdio.conf.js --suite regression && npm run open-allure",
+    "bookingfeature": "wdio run ./wdio.conf.js --cucumberOptions.tagExpressions='@bookingfeature'"
   },
   "dependencies": {
     "allure-commandline": "^2.22.0",
