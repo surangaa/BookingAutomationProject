@@ -19,7 +19,7 @@ Then(/^checkout, checkin dates and amount should be same$/, async () => {
   When(/^user enters (.*), (.*) and (.*) and click Next$/, async (firstname, lastname, emailaddress) => {
       //fill firstname, lastname and email 
       const accdetails = await OrderPage.fillDetailsForm(firstname, lastname, emailaddress)
-      console.log('account details'+accdetails)
+    //   console.log('account details'+accdetails)
       var key5 = Object.keys(accdetails)[0];
       var key6 = Object.keys(accdetails)[1];
       var key7 = Object.keys(accdetails)[2];

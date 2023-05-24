@@ -4,7 +4,7 @@ class HomePage {
   }
 
   get modalCloseButton() {
-    return $("aria/Dismiss sign-in info.");
+    return $('button[class="fc63351294 a822bdf511 e3c025e003 fa565176a8 f7db01295e c334e6f658 ae1678b153"]')
   }
 
   get countryUkButton() {
@@ -29,7 +29,7 @@ class HomePage {
     return $("aria/Prices in United States Dollar");
   }
   get staysButton() {
-    return $("//a[@id='accommodations']");
+    return $('a[aria-controls="accommodations"]');
   }
 
   get alertCloseBtn(){

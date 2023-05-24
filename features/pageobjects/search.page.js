@@ -9,11 +9,11 @@ class SearchPage {
   }
 
   get checkinDate() {
-    return $('aria/14 June 2023');
+    return $('td span[data-date="2023-06-14"]');
   }
 
   get checkoutDate() {
-    return $('aria/16 June 2023');
+    return $('td span[data-date="2023-06-16"]');
   }
 
   get adultChildCountInput() {
@@ -66,6 +66,7 @@ class SearchPage {
 
   async selectCheckinCheckout() {
     await this.checkinCheckoutInput.click();
+    
     //select checkin time
     await this.checkinDate.click();
 
