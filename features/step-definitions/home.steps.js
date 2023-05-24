@@ -60,16 +60,20 @@ Then(/^the tab should be changed to Stays$/, async () => {
 
 When(/^the user enter the (.*)$/, async (location) => {
     //type the location
-	await SearchPage.selectLocation(location);
     report.addStep('selecting the location')
+	await SearchPage.selectLocation(location);
 
 });
 
 When(/^the user selects check in and check out dates$/, async() => {
     //selelct checkin and checkout times
 	const dd = await SearchPage.selectCheckinCheckout();
+    
+
     var key1 = Object.keys(dd)[0];
     var key2 = Object.keys(dd)[1];
+
+    report.addStep('select checkin and checkout dates')
 
     await setValue("checkindate", dd[key1]);
     await setValue("checkoutdate", dd[key2]);

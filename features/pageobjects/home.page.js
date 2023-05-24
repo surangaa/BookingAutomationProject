@@ -42,6 +42,7 @@ class HomePage {
 
   async selectCountry() {
 
+    await this.modalCloseButton.waitForExist(10000)
     await this.modalCloseButton.click();
 
     //click on home page country btn

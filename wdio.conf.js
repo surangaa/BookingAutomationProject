@@ -1,4 +1,6 @@
-// import data from './features/test-Data/url.js'
+import data from './features/test-Data/url.js'
+import report from '@wdio/allure-reporter'
+
 
 // let appBaseurl
 
@@ -250,6 +252,7 @@ export const config = {
      * @param {object}                 context  Cucumber World object
      */
     beforeScenario: function (world, context) {
+        report.addStep('maximizing window')
         browser.maximizeWindow()
     },
     /**
@@ -278,7 +281,7 @@ export const config = {
         if(error){
         await browser.saveScreenshot('./reports/Screenshots/Chrome -' +dat+ '.png');   
         }
-      }
+      },
     /**
      *
      * Runs after a Cucumber Scenario.
@@ -297,8 +300,13 @@ export const config = {
      * @param {string}                   uri      path to feature file
      * @param {GherkinDocument.IFeature} feature  Cucumber feature object
      */
-    // afterFeature: function (uri, feature) {
-    // },
+    afterFeature: function (uri, feature) {
+        report.addEnvironment("BROWSER", "CHROME")
+        report.addEnvironment("ENV URL", data.url1)
+        report.addEnvironment("PLATFORM", process.platform);
+
+
+    },
     
     /**
      * Runs after a WebdriverIO command gets executed

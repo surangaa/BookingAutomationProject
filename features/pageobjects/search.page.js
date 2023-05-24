@@ -1,4 +1,3 @@
-import { start } from "chromedriver";
 
 class SearchPage {
   get locationInput() {
