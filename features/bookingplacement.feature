@@ -4,7 +4,7 @@ Feature: Booking.com website - booking process
     Background:
         Given The user is on Home page
 
-    Scenario: As a user, I can proceed with placing order, stop the booking process and navigate back to home page
+    Scenario: As a user, I can proceed with placing order, cancel the booking process and navigate back to home page
         When  the user perform country selection
         Then the country should be changed to UK
         When  the user perform currency selection
@@ -27,7 +27,8 @@ Feature: Booking.com website - booking process
 
         Examples:
             | location     | message      | firstname | lastname | emailaddress  |
-            | Nuwara Eliya | Nuwara Eliya | robin     | hood     | abc@gmail.com |
+            | Kandy        | Kandy        | robin     | hood     | abc@gmail.com |
+            # | Nuwara Eliya | Nuwara Eliya | robin     | hood     | abc@gmail.com |
 
 
 

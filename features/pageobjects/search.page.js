@@ -4,6 +4,10 @@ class SearchPage {
     return $("//input[@id=':Ra9:']");
   }
 
+  get dropDownBtn(){
+    return $$('div[class="cd1e09fdfe"]')
+  }
+
   get checkinCheckoutInput() {
     return $('div[data-testid="searchbox-dates-container"]');
   }
@@ -60,13 +64,16 @@ class SearchPage {
 
   async selectLocation(location) {
     //select location
+    await this.locationInput.click();
+    await browser.pause(1000)
     await this.locationInput.setValue(location);
+    await browser.pause(1000)
+    await this.dropDownBtn[0].click()
+    await browser.pause(1000)
 
   }
 
   async selectCheckinCheckout() {
-    await this.checkinCheckoutInput.click();
-    
     //select checkin time
     await this.checkinDate.click();
 

@@ -31,7 +31,7 @@ class OrderPage {
   }
 
   get accountDetails(){
-    return $$('ul[class="bui-list bui-list--text personal-details-reassurance__details-container"] li div[class="bp-u-text-ellipsis bui-f-color-grayscale"]')
+    return $$('div[class="bp-u-text-ellipsis bui-f-color-grayscale"]')
   } 
 
   get bookingLogo(){
@@ -77,12 +77,12 @@ class OrderPage {
 
     //click next button
     await this.nextButton.click()
-
+    browser.pause(10000)
     return {a, b, c}
   }
 
   async verifyFormDetails(fn, ln, em){
-    // browser.pause(3000)
+    browser.pause(3000)
     //verify full name and email
     const fullname = fn+' '+ln;
     const fullname2 = await this.accountDetails[0].getText()
