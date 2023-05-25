@@ -1,6 +1,5 @@
-import productPage from './product.page.js';
 import { expect as Chaiexpect } from "chai";
-import  chaiAsPromised from "chai-as-promised";
+
 
 class OrderPage {
   get checkin() {
@@ -83,6 +82,7 @@ class OrderPage {
   }
 
   async verifyFormDetails(fn, ln, em){
+    // browser.pause(3000)
     //verify full name and email
     const fullname = fn+' '+ln;
     const fullname2 = await this.accountDetails[0].getText()
