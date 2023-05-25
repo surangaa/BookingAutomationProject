@@ -82,7 +82,8 @@ class OrderPage {
   }
 
   async verifyFormDetails(fn, ln, em){
-    browser.pause(3000)
+
+    await this.accountDetails[0].waitForExist({ timeout: 60000 })
     //verify full name and email
     const fullname = fn+' '+ln;
     const fullname2 = await this.accountDetails[0].getText()
