@@ -4,8 +4,8 @@ import report from '@wdio/allure-reporter'
 
 // let appBaseurl
 
-// if(process.env.ENV === 'DEV'){appBaseurl = data.url1 }
-// else if (process.env.ENV === 'QA') {appBaseurl = data.url2}
+// if(process.env.ENV === 'DEV'){appBaseurl = data.urlqa }
+// else if (process.env.ENV === 'QA') {appBaseurl = data.urlprod}
 // else{
 //     console.log('Please pass either DEV or QA as ENV')
 //     process.exit()

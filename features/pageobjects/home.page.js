@@ -4,7 +4,9 @@ class HomePage {
   }
 
   get modalCloseButton() {
-    return $('button[class="fc63351294 a822bdf511 e3c025e003 fa565176a8 f7db01295e c334e6f658 ae1678b153"]')
+    return $(
+      'button[class="fc63351294 a822bdf511 e3c025e003 fa565176a8 f7db01295e c334e6f658 ae1678b153"]'
+    );
   }
 
   get countryUkButton() {
@@ -32,24 +34,20 @@ class HomePage {
     return $('a[aria-controls="accommodations"]');
   }
 
-  get alertCloseBtn(){
-    return $('div[class="notice-item-close-x"]')
+  get alertCloseBtn() {
+    return $('div[class="notice-item-close-x"]');
   }
 
-  get alert(){
-    return $('div[data-cart-id="6B0DD26C-F6D0-11ED-9F7E-1B9359924B0A"]')
+  get alert() {
+    return $('div[data-cart-id="6B0DD26C-F6D0-11ED-9F7E-1B9359924B0A"]');
   }
 
   async selectCountry() {
-
-    await this.modalCloseButton.waitForExist(10000)
     await this.modalCloseButton.click();
-
     //click on home page country btn
     await this.countryButton.click();
 
     //selelct Uk as the country
-    // await browser.pause(1000);
     await this.countryUkButton.click();
   }
 
@@ -67,13 +65,13 @@ class HomePage {
 
   async dismissAlert() {
     //dimiss the alert
-    await this.alertCloseBtn.waitForExist(10000)
+    await this.alertCloseBtn.waitForExist(10000);
     await this.alertCloseBtn.click();
   }
 
   async checkForAlert() {
     //verify whether the alert is opened
-    browser.pause(2000)
+    browser.pause(2000);
     let isOpen = await this.alertCloseBtn.isDisplayed();
     await expect(isOpen).toEqual(false);
   }

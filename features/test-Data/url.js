@@ -1,6 +1,6 @@
 let data = {
-    url1: "https://www.booking.com/",
-    url2: "https://www.youtube.com/watch?v=ybSU7PrWpgw"
+    urlqa: "https://www.booking.com/",
+    urlprod: "https://www.booking.com/"
 }
 
 export default data

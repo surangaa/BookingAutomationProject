@@ -27,8 +27,9 @@ Feature: Booking.com website - booking process
 
         Examples:
             | location     | message      | firstname | lastname | emailaddress  |
-            | Kandy        | Kandy        | robin     | hood     | abc@gmail.com |
-            # | Nuwara Eliya | Nuwara Eliya | robin     | hood     | abc@gmail.com |
+            | Nuwara Eliya | Nuwara Eliya | robin     | hood     | abc@gmail.com |
+
+        
 
 
 
