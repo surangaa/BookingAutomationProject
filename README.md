@@ -28,7 +28,7 @@ To run the test -> npm run test/ npm run testsuite / npm run bookingfeature
 
 3. Parameterization test url.
 *Workaround -* had a seperate file as url.js with the urls and read the specific property in 'common.page.js' page.
-               If user want to select a specific url according to the environment, they can first set the ENV variable using "SET ENV='DEV'" then call out the 'npm run test' in cmd.
+               If user want to select a specific url according to the environment, they can first set the ENV variable using "SET ENV='DEV'" then call out the 'npm run test' in cmd line.
 
 4. Sharing data between cucumber steps       
 *Workaround -*  used shared Store service to exchange data between steps and specs    
