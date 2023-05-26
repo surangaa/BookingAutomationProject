@@ -74,10 +74,10 @@ class OrderPage {
     await this.firstNameInput.setValue(firstname)
     await this.lastNameInput.setValue(lastname)
     await this.emailAddressInput.setValue(emailaddress)
-
+    browser.pause(10000)
     //click next button
     await this.nextButton.click()
-    browser.pause(10000)
+    
     return {a, b, c}
   }
 
