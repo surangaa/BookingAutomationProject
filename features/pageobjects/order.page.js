@@ -38,6 +38,10 @@ class OrderPage {
     return $('aria/Booking.com online hotel reservations')
   }
 
+  get countryDropdown(){
+    return $('select[name="cc1"]')
+  }
+
   async verifyBooking(indate, outdate, total) {
     const checkinPd = await this.checkin.getText();
 
@@ -83,7 +87,7 @@ class OrderPage {
 
   async verifyFormDetails(fn, ln, em){
 
-    await this.accountDetails[0].waitForDisplayed({ timeout: 60000 , timeoutMsg: "account details page is not loaded"})
+    await this.countryDropdown.waitForDisplayed({ timeout: 60000 , timeoutMsg: "account details page is not loaded"})
     //verify full name and email
     const fullname = fn+' '+ln;
     const fullname2 = await this.accountDetails[0].getText()

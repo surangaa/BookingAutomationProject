@@ -67,9 +67,9 @@ class SearchPage {
     await this.locationInput.click();
     await browser.pause(1000)
     await this.locationInput.setValue(location);
-    await browser.pause(1000)
+    await browser.pause(3000)
     await this.dropDownBtn[0].click()
-    await browser.pause(1000)
+    await browser.pause(3000)
 
   }
 

@@ -305,7 +305,7 @@ export const config = {
         report.addEnvironment("ENV URL", data.url1)
         report.addEnvironment("PLATFORM", process.platform);
 
-
+        browser.deleteCookies()
     },
     
     /**
