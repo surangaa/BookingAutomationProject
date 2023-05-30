@@ -15,7 +15,7 @@
     "wdio-geckodriver-service": "^5.0.1"
   },
   "scripts": {
-    "open-allure": ".\\node_modules\\.bin\\allure generate allure-results --clean && allure open",
+    "open-allure": ".\\node_modules\\.bin\\allure generate --clean allure-results && allure open",
     "test": "wdio run ./wdio.conf.js && npm run open-allure",
     "testsuite": "wdio run ./wdio.conf.js --suite regression && npm run open-allure",
     "bookingfeature": "wdio run ./wdio.conf.js --cucumberOptions.tagExpressions='@bookingfeature'"
