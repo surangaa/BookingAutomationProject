@@ -1,78 +1,71 @@
 class HomePage {
-  get countryButton() {
-    return $("/html/body/div[1]/div/header/nav[1]/div[2]/span[2]/button");
+  get btn_Country() {
+    return $('button[data-testid="header-language-picker-trigger"]');
   }
 
-  get modalCloseButton() {
+  get btn_ModalClose() {
     return $(
-      'button[class="fc63351294 a822bdf511 e3c025e003 fa565176a8 f7db01295e c334e6f658 ae1678b153"]'
-    );
+      'button[class="fc63351294 a822bdf511 e3c025e003 fa565176a8 f7db01295e c334e6f658 ae1678b153"]');
   }
 
-  get countryUkButton() {
+  get btn_CountryUk() {
     return $("button*=English (UK)");
   }
 
-  get countryUkButton2() {
+  get btn_CountryUk2() {
     return $("aria/Language: English (UK)");
   }
 
-  get currencyButton() {
-    return $(
-      "/html[1]/body[1]/div[1]/div[1]/header[1]/nav[1]/div[2]/span[1]/button[1]"
-    );
+  get btn_Currency() {
+    return $('button[data-testid="header-currency-picker-trigger"]');
   }
 
-  get currencyUsdButton() {
+  get btn_CurrencyUsd() {
     return $("button*=United States Dollar");
   }
 
-  get currencyButton2() {
+  get btn_CurrencyUsd2() {
     return $("aria/Prices in United States Dollar");
   }
-  get staysButton() {
+  get btn_Stays() {
     return $('a[aria-controls="accommodations"]');
   }
 
-  get alertCloseBtn() {
+  get btn_AlertClose() {
     return $('div[class="notice-item-close-x"]');
   }
 
-  get alert() {
-    return $('div[data-cart-id="6B0DD26C-F6D0-11ED-9F7E-1B9359924B0A"]');
-  }
-
   async selectCountry() {
-    await this.modalCloseButton.click();
+    await this.btn_ModalClose.click();
     //click on home page country btn
-    await this.countryButton.click();
+    await this.btn_Country.click();
 
     //selelct Uk as the country
-    await this.countryUkButton.click();
+    await this.btn_CountryUk.click();
   }
 
   async selectCurrency() {
     //click on home page currency btn
-    await this.currencyButton.click();
+    await this.btn_Currency.click();
     //selelct usd as the currency
-    await this.currencyUsdButton.click();
+    await this.btn_CurrencyUsd.click();
   }
 
   async clickStaysBtn() {
     //click stays button
-    await this.staysButton.click();
+    await this.btn_Stays.click();
   }
 
   async dismissAlert() {
     //dimiss the alert
-    await this.alertCloseBtn.waitForExist(10000);
-    await this.alertCloseBtn.click();
+    await this.btn_AlertClose.waitForExist({timeout: 10000});
+    await this.btn_AlertClose.click();
   }
 
   async checkForAlert() {
     //verify whether the alert is opened
     browser.pause(2000);
-    let isOpen = await this.alertCloseBtn.isDisplayed();
+    let isOpen = await this.btn_AlertClose.isDisplayed();
     await expect(isOpen).toEqual(false);
   }
 }

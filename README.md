@@ -1,6 +1,6 @@
 # BookingAutomationProject
 
-This project includes a basic flow automation of Booking.com official website. Webdriverio and cucumber is used in implmentation
+This project includes a basic flow automation of Booking.com official website. Webdriverio and cucumber is used in implementation
 
 ## Prerequisites to setup project
 install and setup Node
@@ -12,7 +12,7 @@ clone the reporsitory -  git clone https://github.com/surangaa/BookingAutomation
 Open the project in IDE
 run a 'npm install' to install all the dependencies
 To run the test -> npm run test/ npm run testsuite / npm run bookingfeature 
-(to run the project in firefox use -> npm run test:firefox)
+to run the test in edge browser or firefox browser, edit wdio.conf.js file line 72 accordingly as utils.firefox or utils.edge
 
 ## Issues faced
 
@@ -28,7 +28,12 @@ To run the test -> npm run test/ npm run testsuite / npm run bookingfeature
 
 3. Parameterization test url.
 *Workaround -* had a seperate file as url.js with the urls and read the specific property in 'common.page.js' page.
-               If user want to select a specific url according to the environment, they can first set the ENV variable using "SET ENV='DEV'" then call out the 'npm run test' in cmd line.
+
+               If user want to select a specific url according to the environment, 
+                I. to get the url by environment '/' should be used within brackets in common.page.js file line 11. 
+                II. make sure to comment line 6-13 and line 108 in wdio.conf.js and comment line 107 in wdio.conf.js
+                III. they can first set the ENV variable using "SET ENV='DEV'" then call out the 'npm run test' in cmd line.
+       
 
 4. Sharing data between cucumber steps       
 *Workaround -*  used shared Store service to exchange data between steps and specs    

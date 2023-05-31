@@ -18,7 +18,7 @@ When(/^the user perform country selection$/,async () => {
 
 Then(/^the country should be changed to UK$/, async () => {
     //verify the country selection
-    const elem = await HomePage.countryUkButton2
+    const elem = await HomePage.btn_CountryUk2
     await expect(elem).toBeDisplayed();
     report.addStep('verify whether UK is selected')
 
@@ -35,7 +35,7 @@ When(/^the user perform currency selection$/, async () => {
 Then(/^the currency should be changed to USD$/,async () => {
     await browser.pause(3000);
     //verify the currency selection
-    const elem2 = await HomePage.currencyButton2
+    const elem2 = await HomePage.btn_CurrencyUsd2
     await expect(elem2).toBeDisplayed()
     report.addStep('verify whether USD is selected')
 
@@ -52,7 +52,7 @@ When(/^the user click on Stays tab$/, async () => {
 Then(/^the tab should be changed to Stays$/, async () => {
 	await browser.pause(3000);
     //verify Stays tab selection
-    const elem3 = await SearchPage.locationInput
+    const elem3 = await SearchPage.tf_Location
     await expect(elem3).toBeDisplayed()
     report.addStep('verify whether the location input is loaded')
 

@@ -2,48 +2,48 @@ import { expect as Chaiexpect } from "chai";
 
 
 class OrderPage {
-  get checkin() {
+  get lbl_Checkin() {
     return $("/html[1]/body[1]/div[1]/div[1]/div[3]/div[2]/aside[1]/div[1]/section[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/time[1]/span[1]");
   }
 
-  get checkout() {
+  get lbl_Checkout() {
     return $("/html[1]/body[1]/div[1]/div[1]/div[3]/div[2]/aside[1]/div[1]/section[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/time[1]/span[1]");
   }
 
-  get productTotal(){
+  get lbl_ProductTotal(){
     return $('div[class="bp-price-details__total-price e2e-price-details__total-charge--user"] span');
     
   }
 
-  get firstNameInput(){
+  get tf_FirstName(){
     return $('#firstname')
   }
 
-  get lastNameInput(){
+  get tf_FirstName(){
     return $('#lastname')
   }
 
-  get emailAddressInput(){
+  get tf_EmailAddress(){
     return $('#email')
   }
-  get nextButton(){
+  get btn_Next(){
     return $('button*= Next: Final details')
   }
 
-  get accountDetails(){
+  get lbl_AccountDetails(){
     return $$('div[class="bp-u-text-ellipsis bui-f-color-grayscale"]')
   } 
 
-  get bookingLogo(){
+  get lnk_BookingLogo(){
     return $('aria/Booking.com online hotel reservations')
   }
 
-  get countryDropdown(){
+  get dd_Country(){
     return $('select[name="cc1"]')
   }
 
   async verifyBooking(indate, outdate, total) {
-    const checkinPd = await this.checkin.getText();
+    const checkinPd = await this.lbl_Checkin.getText();
 
     //verify whether checkin date of home page matches checkin date order confirmation page
     // console.log('checkin:' + indate + checkinPd)
@@ -52,7 +52,7 @@ class OrderPage {
     await expect(ci).toEqual(indate)
 
 
-    const checkoutPd = await this.checkout.getText();
+    const checkoutPd = await this.lbl_Checkout.getText();
     //verify whether checkout date of home page matches checkout date order confirmation page
     // console.log('checkout:' + outdate + checkoutPd)
     const co = checkoutPd.substring(0, checkoutPd.lastIndexOf(" "))
@@ -62,7 +62,7 @@ class OrderPage {
 
 
     //verify the booking price
-    const pdprice = await this.productTotal.getText()
+    const pdprice = await this.lbl_ProductTotal.getText()
     // console.log('total price:' + total + pdprice)
     await expect(Math.round(total)).toEqual(Math.round(pdprice))
 
@@ -75,29 +75,29 @@ class OrderPage {
     // console.log(a + b + c)
 
     //fill out firstname, lastname, email
-    await this.firstNameInput.setValue(firstname)
-    await this.lastNameInput.setValue(lastname)
-    await this.emailAddressInput.setValue(emailaddress)
+    await this.tf_FirstName.setValue(firstname)
+    await this.tf_FirstName.setValue(lastname)
+    await this.tf_EmailAddress.setValue(emailaddress)
     browser.pause(10000)
     //click next button
-    await this.nextButton.click()
+    await this.btn_Next.click()
     
     return {a, b, c}
   }
 
   async verifyFormDetails(fn, ln, em){
 
-    await this.countryDropdown.waitForDisplayed({ timeout: 60000 , timeoutMsg: "account details page is not loaded"})
+    await this.dd_Country.waitForDisplayed({ timeout: 60000 , timeoutMsg: "account details page is not loaded"})
     //verify full name and email
     const fullname = fn+' '+ln;
-    const fullname2 = await this.accountDetails[0].getText()
-    const email2 = await this.accountDetails[1].getText()
+    const fullname2 = await this.lbl_AccountDetails[0].getText()
+    const email2 = await this.lbl_AccountDetails[1].getText()
     // console.log(fullname)
     await Chaiexpect(fullname).to.equal(fullname2);
     await Chaiexpect(em).to.equal(email2);
 
     //click on booking.com logo
-    await this.bookingLogo.click();
+    await this.lnk_BookingLogo.click();
 
   }
 }

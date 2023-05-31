@@ -1,85 +1,88 @@
-
 class SearchPage {
-  get locationInput() {
+  get tf_Location() {
     return $("//input[@id=':Ra9:']");
   }
 
-  get dropDownBtn(){
-    return $$('div[class="cd1e09fdfe"]')
+  get dd_Location() {
+    return $$('div[class="cd1e09fdfe"]');
   }
 
-  get checkinCheckoutInput() {
-    return $('div[data-testid="searchbox-dates-container"]');
+  get btn_CheckinDate() {
+    return $('td span[data-date="2023-06-20"]');
   }
 
-  get checkinDate() {
-    return $('td span[data-date="2023-06-14"]');
+  get btn_CheckoutDate() {
+    return $('td span[data-date="2023-06-22"]');
   }
 
-  get checkoutDate() {
-    return $('td span[data-date="2023-06-16"]');
-  }
-
-  get adultChildCountInput() {
+  get tf_AdultChildCount() {
     return $('button[data-testid="occupancy-config"]');
   }
 
-  get minusButton() {
-    return $(
-      "/html[1]/body[1]/div[2]/div[2]/div[1]/div[1]/form[1]/div[1]/div[3]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/button[1]"
-    );
+  get btn_Minus() {
+    return $$('div[class="e98c626f34"] button');
   }
 
-  get doneButton() {
+  get btn_Done() {
     return $("button*=Done");
   }
 
-  get searchButton() {
+  get btn_Search() {
     return $("button*=Search");
   }
 
-  get starRateCheckbox() {
+  get chk_StarRate() {
     return $("//input[@id=':Rlf94q:']");
   }
 
-  get SortByButton() {
-    return $('button*=Sort by');
+  get btn_SortBy() {
+    return $("button*=Sort by");
   }
 
-  get priceLowestListitem() {
-    return $('button*=Price (lowest first)');
+  get btn_PriceLowestListItem() {
+    return $("button*=Price (lowest first)");
   }
 
-  get textHeading() {
-    return $('h1*=properties found');
+  get txt_Heading() {
+    return $("h1*=properties found");
   }
 
-  get selectedCheckinDate() {
+  get btn_SelectedCheckinDate() {
     return $('button[data-testid="date-display-field-start"]');
   }
 
-  get selectedCheckoutDate() {
+  get btn_SelectedCheckoutDate() {
     return $('button[data-testid="date-display-field-end"]');
   }
 
-  async selectLocation(location) {
-    //select location
-    await this.locationInput.click();
-    await browser.pause(1000)
-    await this.locationInput.setValue(location);
-    await browser.pause(3000)
-    await this.dropDownBtn[0].click()
-    await browser.pause(3000)
+  get txt_Count() {
+    return $$('div[class="e98c626f34"] span[class="e615eb5e43"]');
+  }
 
+  async selectLocation(location) {
+    //click on location text field
+    await this.tf_Location.click();
+    await browser.pause(1000);
+
+    //set the location value
+    await this.tf_Location.setValue(location);
+    await browser.pause(3000);
+
+    //select the suggested first location
+    await this.dd_Location[0].click();
+    await browser.pause(3000);
   }
 
   async selectCheckinCheckout() {
     //select checkin time
-    await this.checkinDate.click();
+    await this.btn_CheckinDate.click();
 
     //select checkout time
-    await this.checkoutDate.waitForClickable({timeout: 2000, timeoutMsg:'checkout date is not clickable'})
-    await this.checkoutDate.click();
+    await this.btn_CheckoutDate.waitForClickable({
+      timeout: 2000,
+      timeoutMsg: "checkout date is not clickable",
+    });
+    await this.btn_CheckoutDate.click();
 
     let cd = await this.getDates();
     return cd;
@@ -87,43 +90,51 @@ class SearchPage {
 
   async selelctAdultChildCount() {
     //click on dropdown button
-    await this.adultChildCountInput.click();
+    await this.tf_AdultChildCount.click();
     //select adult count
-    await this.minusButton.click();
+    await this.btn_Minus[0].click();
+
+    await expect(this.txt_Count[0]).toHaveText("1");
+    await expect(this.txt_Count[1]).toHaveText("0");
+    await expect(this.txt_Count[2]).toHaveText("1");
+
     //click done button
-    await this.doneButton.click();
+    await this.btn_Done.click();
   }
 
   async clickSearch() {
     //click serach button
-    await this.searchButton.click();
+    await this.btn_Search.click();
   }
 
   async verifyLocation(message) {
     //verify location
-    await expect(this.textHeading).toHaveTextContaining(message);
+    await expect(this.txt_Heading).toHaveTextContaining(message);
   }
 
   async selectRating() {
-    await this.starRateCheckbox.scrollIntoView();
+    await this.chk_StarRate.scrollIntoView();
     //click star 5 rating
-    await this.starRateCheckbox.click();
+    await this.chk_StarRate.click();
   }
 
   async selectSortBypriceOption() {
-    await this.SortByButton.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
+    await this.btn_SortBy.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+      inline: "nearest",
+    });
     //select price lowest option
-    await this.SortByButton.click();
-    await this.priceLowestListitem.click();
+    await this.btn_SortBy.click();
+    await this.btn_PriceLowestListItem.click();
   }
 
   async getDates() {
     //get checkin date and checkout date
-    let checkindate = await this.selectedCheckinDate.getText();
-    let checkoutdate = await this.selectedCheckoutDate.getText();
-    return {checkindate, checkoutdate};
+    let checkindate = await this.btn_SelectedCheckinDate.getText();
+    let checkoutdate = await this.btn_SelectedCheckoutDate.getText();
+    return { checkindate, checkoutdate };
   }
-
 }
 
 export default new SearchPage();
