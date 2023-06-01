@@ -2,12 +2,8 @@ import { expect as Chaiexpect } from "chai";
 
 
 class OrderPage {
-  get lbl_Checkin() {
-    return $("/html[1]/body[1]/div[1]/div[1]/div[3]/div[2]/aside[1]/div[1]/section[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/time[1]/span[1]");
-  }
-
-  get lbl_Checkout() {
-    return $("/html[1]/body[1]/div[1]/div[1]/div[3]/div[2]/aside[1]/div[1]/section[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/time[1]/span[1]");
+  get lbl_Dates() {
+    return $$('time span[class="bui-date__title"]');
   }
 
   get lbl_ProductTotal(){
@@ -19,7 +15,7 @@ class OrderPage {
     return $('#firstname')
   }
 
-  get tf_FirstName(){
+  get tf_LastName(){
     return $('#lastname')
   }
 
@@ -39,11 +35,11 @@ class OrderPage {
   }
 
   get dd_Country(){
-    return $('select[name="cc1"]')
+    return $$('span[class="f9afbb0024 e733f1c8d1"]')
   }
 
   async verifyBooking(indate, outdate, total) {
-    const checkinPd = await this.lbl_Checkin.getText();
+    const checkinPd = await this.lbl_Dates[0].getText();
 
     //verify whether checkin date of home page matches checkin date order confirmation page
     // console.log('checkin:' + indate + checkinPd)
@@ -52,7 +48,7 @@ class OrderPage {
     await expect(ci).toEqual(indate)
 
 
-    const checkoutPd = await this.lbl_Checkout.getText();
+    const checkoutPd = await this.lbl_Dates[1].getText();
     //verify whether checkout date of home page matches checkout date order confirmation page
     // console.log('checkout:' + outdate + checkoutPd)
     const co = checkoutPd.substring(0, checkoutPd.lastIndexOf(" "))
@@ -76,9 +72,12 @@ class OrderPage {
 
     //fill out firstname, lastname, email
     await this.tf_FirstName.setValue(firstname)
-    await this.tf_FirstName.setValue(lastname)
+  
+    await this.tf_LastName.setValue(lastname)
+ 
     await this.tf_EmailAddress.setValue(emailaddress)
-    browser.pause(10000)
+ 
+    browser.pause(60000)
     //click next button
     await this.btn_Next.click()
     
@@ -87,7 +86,7 @@ class OrderPage {
 
   async verifyFormDetails(fn, ln, em){
 
-    await this.dd_Country.waitForDisplayed({ timeout: 60000 , timeoutMsg: "account details page is not loaded"})
+    browser.pause(5000)
     //verify full name and email
     const fullname = fn+' '+ln;
     const fullname2 = await this.lbl_AccountDetails[0].getText()

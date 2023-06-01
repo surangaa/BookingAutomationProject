@@ -1,4 +1,5 @@
 import { expect as Chaiexpect } from "chai";
+import OrderPage from "./order.page.js";
 
 class ProductPage {
   get lbl_SecondProductName() {
@@ -31,12 +32,14 @@ class ProductPage {
     return $$('div[data-testid="taxes-and-charges"]');
   }
 
-  get lbl_Price(){
-    return $$('span[class="prco-valign-middle-helper"]')
+  get lbl_Price() {
+    return $$('span[class="prco-valign-middle-helper"]');
   }
 
-  get lbl_Tax(){
-    return $$('div[class="prd-taxes-and-fees-under-price prco-inline-block-maker-helper on-hpage blockuid-732588204_362186756_1_0_0"]')
+  get lbl_Tax() {
+    return $$(
+      'div[class*="prd-taxes-and-fees-under-price prco-inline-block-maker-helper"]'
+    );
   }
 
   async getProductDetails() {
@@ -52,13 +55,7 @@ class ProductPage {
 
   async getTaxamount() {
     const extractedtax = await this.lbl_TaxAmount[1].getText();
-
-    if (extractedtax !== "Includes taxes and charges") {
-      const tax = await extractedtax.match(/\d+/g);
-      console.log("tax" + tax);
-      return tax;
-    } 
-
+    console.log("extracted value" + extractedtax);
     return extractedtax;
   }
 
@@ -88,16 +85,38 @@ class ProductPage {
     await Chaiexpect(productName).to.equal(pdproductname);
   }
 
-  async selectRoomCount() {
-    await browser.pause(6000);
+  async selectRoomCount(productprice, extractedtax) {
+    await browser.pause(3000);
     //scroll till view the selectbox
     await this.lbl_HeadingLevel.scrollIntoView();
 
-    //select room count for the select box.
-    await this.dd_RoomCount[0].selectByAttribute("value", "1");
+    let count = 0;
+    let pricesMatch = false;
 
-    await browser.pause(1000);
-    await this.btn_Reserve.click();
+    while (count < 6 && !pricesMatch) {
+      try {
+        const getprice = await this.lbl_Price[count].getText();
+        const gettax = await this.lbl_Tax[count].getText();
+
+        //      console.log('price' + getprice + productprice)
+        // console.log('tax'+ gettax + extractedtax)
+
+        if (getprice == productprice) {
+          await this.dd_RoomCount[count].selectByAttribute("value", "1");
+
+          await browser.pause(1000);
+          await this.btn_Reserve.click();
+
+          await OrderPage.lbl_ProductTotal.waitForExist({ timeout: 10000 });
+
+          pricesMatch = true; // Set pricesMatch to true if the prices match
+        } else {
+          count++;
+        }
+      } catch (error) {
+        console.log("Prices do not match:", error.message);
+      }
+    }
   }
 }
 

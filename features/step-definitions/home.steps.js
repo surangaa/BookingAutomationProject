@@ -89,8 +89,6 @@ When(/^the user select adults and child count$/, async() => {
 });
 
 
-
-
 When(/^user dismisses the alert$/, async () => {
     //dismiss the alert
     await HomePage.dismissAlert()

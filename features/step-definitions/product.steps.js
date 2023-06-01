@@ -27,6 +27,10 @@ When(/^User filters price lowest products$/, async () => {
 });
 
 When(/^User selects second product on the list$/, async () => {
+    //get tax amount
+    let extractedtax = await ProductPage.getTaxamount();
+    await setValue("extractedtax", extractedtax)
+
     //select the second product from the list
 	let pdetails = await ProductPage.selectSecondProduct();
     report.addStep('select second product from the list')
@@ -44,7 +48,10 @@ When(/^User selects second product on the list$/, async () => {
 
 When(/^user selects Rooms count and proceed$/, async() => {
 //select Room count 
-	await ProductPage.selectRoomCount()
+   const getp = await getValue("productprice");
+   const et = await getValue("extractedtax");
+   console.log('et'+et)
+	await ProductPage.selectRoomCount(getp,et)
     report.addStep('select the room count and proceed')
 
 });
