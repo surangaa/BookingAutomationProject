@@ -98,9 +98,6 @@ class ProductPage {
         const getprice = await this.lbl_Price[count].getText();
         const gettax = await this.lbl_Tax[count].getText();
 
-        //      console.log('price' + getprice + productprice)
-        // console.log('tax'+ gettax + extractedtax)
-
         if (getprice == productprice) {
           await this.dd_RoomCount[count].selectByAttribute("value", "1");
 
