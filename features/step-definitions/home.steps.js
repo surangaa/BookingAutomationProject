@@ -1,17 +1,20 @@
 import { Given, When, Then } from '@wdio/cucumber-framework';
-import HomePage from '../pageobjects/home.page.js';
-import CommonPage from '../pageobjects/common.page.js';
-import SearchPage from '../pageobjects/search.page.js';
+import HomeComponent from '../components/bc_Home.js';
+import CommonComponent from '../components/bc_Common.js';
+import SearchComponent from '../components/bc_Search.js';
+import HomePage from '../pageobjects/pg_Home.js'
+import SearchPage from '../pageobjects/pg_Search.js'
 import { setValue, getValue } from '@wdio/shared-store-service'
 import report from '@wdio/allure-reporter'
 
 
 When(/^the user perform country selection$/,async () => {
-    //country selelction method is called
-    await CommonPage.verifyPageUrl();
+//verify page url
+    await CommonComponent.verifyPageUrl();
     report.addStep('verifing the page url')
 
-    await HomePage.selectCountry();
+    //select the country
+    await HomeComponent.selectCountry();
     report.addStep('selecting the country UK from country list')
 
 });
@@ -25,8 +28,8 @@ Then(/^the country should be changed to UK$/, async () => {
 });
 
 When(/^the user perform currency selection$/, async () => {
-     //currency selelction method is called
-    await HomePage.selectCurrency();
+     //currency selelction
+    await HomeComponent.selectCurrency();
     report.addStep('selelcting the currency as USD')
 
 });
@@ -44,7 +47,7 @@ Then(/^the currency should be changed to USD$/,async () => {
  
 When(/^the user click on Stays tab$/, async () => {
     //select Stays tab
-	await HomePage.clickStaysBtn()
+	await HomeComponent.clickStaysBtn()
     report.addStep('selecting Stays tab')
 
 });
@@ -58,20 +61,19 @@ Then(/^the tab should be changed to Stays$/, async () => {
 
 });
 
-When(/^the user enter the (.*)$/, async (location) => {
+When(/^the user enter the location$/, async () => {
     //type the location
     report.addStep('selecting the location')
-	await SearchPage.selectLocation(location);
+	await SearchComponent.selectLocation();
 
 });
 
 When(/^the user selects check in and check out dates$/, async() => {
     //selelct checkin and checkout times
-	const dd = await SearchPage.selectCheckinCheckout();
-    
+	const dd = await SearchComponent.selectCheckinCheckout();
 
-    var key1 = Object.keys(dd)[0];
-    var key2 = Object.keys(dd)[1];
+    const key1 = Object.keys(dd)[0];
+    const key2 = Object.keys(dd)[1];
 
     report.addStep('select checkin and checkout dates')
 
@@ -83,7 +85,7 @@ When(/^the user selects check in and check out dates$/, async() => {
 
 When(/^the user select adults and child count$/, async() => {
     //select adult,child and room count
-	await SearchPage.selelctAdultChildCount();
+	await SearchComponent.selelctAdultChildCount();
     report.addStep('selecting adult, child and rooms count')
 
 });
@@ -91,14 +93,14 @@ When(/^the user select adults and child count$/, async() => {
 
 When(/^user dismisses the alert$/, async () => {
     //dismiss the alert
-    await HomePage.dismissAlert()
+    await HomeComponent.dismissAlert()
     report.addStep('dismiss the alert')
 
 });
 
 Then(/^alert should not be present$/, async () => {
     //verify whether the alert is opened
-	await HomePage.checkForAlert()
+	await HomeComponent.checkForAlert()
     report.addStep('check whether the alert is present on the page')
 
 });

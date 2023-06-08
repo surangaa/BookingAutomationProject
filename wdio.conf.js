@@ -1,16 +1,6 @@
-import data from './features/test-Data/url.js'
 import utils from './features/test-Data/utils.js'
 import report from '@wdio/allure-reporter'
 
-
-// let appBaseurl
-
-// if(process.env.ENV === 'DEV'){appBaseurl = data.urlqa }
-// else if (process.env.ENV === 'QA') {appBaseurl = data.urlprod}
-// else{
-//     console.log('Please pass either DEV or QA as ENV')
-//     process.exit()
-// }
 
 export const config = {
     //
@@ -105,7 +95,6 @@ export const config = {
     // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
     // gets prepended directly.
     baseUrl: 'http://localhost',
-    // baseUrl: appBaseurl,
     //
     // Default timeout for all waitFor* commands.
     waitforTimeout: 10000,
