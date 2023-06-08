@@ -7,8 +7,16 @@ import report from '@wdio/allure-reporter'
 
 
 When(/^the user perform country selection$/,async () => {
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
     //country selelction method is called
     await CommonPage.verifyPageUrl();
+=======
+=======
+>>>>>>> Stashed changes
+    //verify page url
+    await CommonComponent.verifyPageUrl();
+>>>>>>> Stashed changes
     report.addStep('verifing the page url')
 
     await HomePage.selectCountry();
@@ -82,12 +90,19 @@ When(/^the user selects check in and check out dates$/, async() => {
 });
 
 When(/^the user select adults and child count$/, async() => {
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
     //select adult,child and room count
 	await SearchPage.selelctAdultChildCount();
+=======
+=======
+>>>>>>> Stashed changes
+    //select adult, child and room count
+	await SearchComponent.selelctAdultChildCount();
+>>>>>>> Stashed changes
     report.addStep('selecting adult, child and rooms count')
 
 });
-
 
 When(/^user dismisses the alert$/, async () => {
     //dismiss the alert

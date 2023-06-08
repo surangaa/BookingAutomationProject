@@ -1,5 +1,5 @@
 import { Given, When, Then } from '@wdio/cucumber-framework';
-import OrderPage from '../pageobjects/order.page.js';
+import OrderComponent from '../components/bc_Order.js';
 import { setValue, getValue } from '@wdio/shared-store-service'
 import report from '@wdio/allure-reporter'
 
@@ -11,14 +11,14 @@ Then(/^checkout, checkin dates and amount should be same$/, async () => {
     const pp = await getValue("productprice");
     report.addStep('getting checkindate, checkoutdate and product price from local storage')
  
-    await OrderPage.verifyBooking(cid, cod, pp);
+    await OrderComponent.verifyBooking(cid, cod, pp);
     report.addStep('verifing the checkindate, checkoutdate and product price details')
 
   });
   
-  When(/^user enters (.*), (.*) and (.*) and click Next$/, async (firstname, lastname, emailaddress) => {
+  When(/^user enters firstname, lastname and emailaddress and click Next$/, async () => {
       //fill firstname, lastname and email 
-      const accdetails = await OrderPage.fillDetailsForm(firstname, lastname, emailaddress)
+      const accdetails = await OrderComponent.fillDetailsForm()
     //   console.log('account details'+accdetails)
       var key5 = Object.keys(accdetails)[0];
       var key6 = Object.keys(accdetails)[1];
@@ -40,6 +40,6 @@ Then(/^checkout, checkin dates and amount should be same$/, async () => {
       report.addStep('getting firstname, lastname and email address from local storage')
 
       //verify form details
-      await OrderPage.verifyFormDetails(fn, ln, em)
+      await OrderComponent.verifyFormDetails(fn, ln, em)
       report.addStep('verifying firstname, lastname and email address')
   });
